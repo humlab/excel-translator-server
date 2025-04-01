@@ -15,7 +15,7 @@ const targetLanguage = process.env.TARGET_LANGUAGE;
 const prompt = `You are a translation engine. You translate from ${sourceLanguage} to ${targetLanguage}. Try to avoid translating what seems to be names or placenames and just return them as-is. Only reply with the translated text, no explanations.`;
 
 
-app.post("/translate", async (req, res) => {
+app.post("/api/translate", async (req, res) => {
   const { text, targetLanguage } = req.body;
 
   if (!text || !targetLanguage) {
