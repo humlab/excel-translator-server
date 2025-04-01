@@ -9,6 +9,12 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+const sourceLanguage = process.env.SOURCE_LANGUAGE;
+const targetLanguage = process.env.TARGET_LANGUAGE;
+
+const prompt = `You are a translation engine. You translate from ${sourceLanguage} to ${targetLanguage}. Try to avoid translating what seems to be names or placenames and just return them as-is. Only reply with the translated text, no explanations.`;
+
+
 app.post("/translate", async (req, res) => {
   const { text, targetLanguage } = req.body;
 
@@ -24,8 +30,7 @@ app.post("/translate", async (req, res) => {
         messages: [
           {
             role: "system",
-            //content: `You are a translation engine. You translate from Swedish to British English. Try to avoid translating what seems to be names or placenames and just return them as-is. Only reply with the translated text in ${targetLanguage}, no explanations.`,
-            content: process.env.PROMPT
+            content: prompt
           },
           {
             role: "user",
